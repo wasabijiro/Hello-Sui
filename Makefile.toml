@@ -1,0 +1,52 @@
+[env]
+PACKAGE_ID = "0xd352bb6e48f1cbd323443ffcb1449844a76e69cf"
+
+[tasks."install:dev"]
+script = """
+cargo install --locked --git https://github.com/MystenLabs/sui.git --branch devnet sui
+"""
+
+[tasks."build:move"]
+script = '''
+sui move build
+'''
+
+[tasks."publish:move"]
+dependencies = [
+    "build:move",
+]
+script = '''
+sui client publish --gas-budget 30000 --json
+'''
+
+[tasks."switch:testnet"]
+script = '''
+sui client new-env --alias testnet --rpc https://fullnode.testnet.sui.io:443
+sui client switch --env testnet
+'''
+
+[tasks."install:cli"]
+script = '''
+cargo install --locked --git https://github.com/MystenLabs/sui.git --branch testnet sui
+'''
+
+[tasks."create_wasabi"]
+script = '''
+sui client call \
+    --package ${PACKAGE_ID} \
+    --module wasabi \
+    --function create_wasabi \
+    --gas-budget 1000 \
+'''
+
+[tasks."push_wasabi"]
+script = '''
+sui client call \
+    --package ${PACKAGE_ID} \
+    --module wasabi \
+    --function push_wasabi \
+    --args \
+        0x139c8b1aaa914844ed1a4aedde3a8b8008780bbd \
+        114514 \
+    --gas-budget 1000 \
+'''

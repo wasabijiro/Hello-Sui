@@ -1,0 +1,10 @@
+[package]
+name = "hello_sui"
+version = "0.0.0"
+
+[dependencies]
+Sui = {git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-framework", rev = "testnet"}
+
+[addresses]
+hello_sui = "0x0"
+sui = "0x2"
