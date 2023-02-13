@@ -1,7 +1,7 @@
 [env]
-PACKAGE_ID = "0xd352bb6e48f1cbd323443ffcb1449844a76e69cf"
+PACKAGE_ID = "0x139eb7c2155eb3eb74f43215c53c12a1565e99e2"
 
-[tasks."install:dev"]
+[tasks."install:devnet"]
 script = """
 cargo install --locked --git https://github.com/MystenLabs/sui.git --branch devnet sui
 """
@@ -25,7 +25,7 @@ sui client new-env --alias testnet --rpc https://fullnode.testnet.sui.io:443
 sui client switch --env testnet
 '''
 
-[tasks."install:cli"]
+[tasks."install:testnet"]
 script = '''
 cargo install --locked --git https://github.com/MystenLabs/sui.git --branch testnet sui
 '''
@@ -46,7 +46,7 @@ sui client call \
     --module wasabi \
     --function push_wasabi \
     --args \
-        0x139c8b1aaa914844ed1a4aedde3a8b8008780bbd \
+        0x0f95f6e1501eb27581c02a6edaed2151068f62b8 \
         114514 \
     --gas-budget 1000 \
 '''
